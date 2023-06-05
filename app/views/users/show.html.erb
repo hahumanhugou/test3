@@ -1,0 +1,30 @@
+<div>
+  <%= flash[:notice] %>
+</div>
+<div class="container px-5 px-sm-0">
+  <div class="row">
+<%= render 'list', book: @book ,user: @user%>
+<div class="col-md-8 offset-md-1">
+      <h2>Books</h2>
+      <table class="table">
+  <% @books.each do |book| %>
+  <tbody>
+      <tr>
+        <td><%= link_to book.user.get_profile_image(100,100), user_path(book.user_id) %></td>
+        <td> <%= link_to book_path(book.id) do %>
+             <%= book.title %>
+             <% end %>
+        </td>
+        <td><%= book.body %></td>
+      </tr>
+
+  </tbody>
+  <% end %>
+</table>
+    </div>
+
+
+
+</div>
+</div>
+<!-- ユーザーの投稿一覧 -->
