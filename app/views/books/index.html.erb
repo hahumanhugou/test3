@@ -26,12 +26,27 @@
   <% @books.each do |book| %>
   <tbody>
       <tr>
-        <td><%= link_to book.user.get_profile_image(100,100), user_path(book.user_id) %></td>
+        <td><%= link_to image_tag( book.user.get_profile_image(100,100) ),user_path(book.user_id)  %>
+        </td>
         <td> <%= link_to book_path(book.id) do %>
              <%= book.title %>
              <% end %>
         </td>
         <td><%= book.body %></td>
+        <td>コメント数：<%= book.book_comments.count %></td>
+        <td><% if book.favorited_by?(current_user) %>
+    <p>
+      <%= link_to book_favorites_path(book), method: :delete do %>
+        <i class="fa-solid fa-heart"></i><%= book.favorites.count %>
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to book_favorites_path(book), method: :post do %>
+        <i class="fa-solid fa-heart"></i><%= book.favorites.count %>
+      <% end %>
+    </p>
+  <% end %></td>
 
       </tr>
 
